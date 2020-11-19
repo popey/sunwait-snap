@@ -1,0 +1,27 @@
+name: sunwait
+adopt-info: sunwait
+summary: Sunwait is a program for calculating sunrise and sunset.
+description: |
+  Sunwait is a small C program for calculating sunrise and sunset, as well as 
+  civil, nautical, and astronomical twilights. It has features that make it 
+  useful for home automation tasks.
+base: core20
+grade: stable
+confinement: strict
+
+apps:
+  sunwait:
+    command: usr/bin/sunwait
+    plugs:
+      - network
+
+parts:
+  sunwait:
+    plugin: make
+    source: https://github.com/klada/sunwait
+    source-type: git
+    build-packages:
+      - build-essential
+    override-pull: |
+      snapcraftctl pull
+      snapcraftctl set-version "$(git describe --tags)"
